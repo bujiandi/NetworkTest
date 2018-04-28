@@ -12,8 +12,9 @@ import Foundation
 public protocol NetDecoder {
     
     associatedtype Result
+    associatedtype Request:NetSuccessable
     
-    func decode(data:Data) throws -> Result
+    func decode(request:Request, response:HTTPURLResponse, data:Data) throws -> Result
     
 }
 
@@ -21,27 +22,33 @@ public protocol NetDecoder {
 open class NetHTMLDecoder : NetDecoder {
    
     public typealias Result = String
+    public typealias Request = NetDataRequest
     
-    open func decode(data:Data) throws -> String {
+    open func decode(request:Request, response:HTTPURLResponse, data:Data) throws -> Result {
         guard let result = String(data: data, encoding: .utf8) else {
-            throw NSError(domain: "未知的数据格式或内容编码", code: -10001, userInfo: ["data":data])
+            let text = "未知的数据格式或内容编码"
+            let info = ["data":data] as [String : Any]
+            throw NSError(domain: text, code: -10001, userInfo: info)
         }
         return result
     }
 }
 
-
 open class NetJSONDecoder : NetDecoder {
     
     public typealias Result = JSON
+    public typealias Request = NetDataRequest
 
-    open func decode(data:Data) throws -> JSON {
+
+    open func decode(request:Request, response:HTTPURLResponse, data:Data) throws -> Result {
         
         var result:JSON = .null
         do {
             result = try JSONDecoder().decode(JSON.self, from: data)
         } catch (let error) {
-            throw NSError(domain: "未知的数据格式或内容编码", code: -10001, userInfo: ["data":data, "jsonError":error])
+            let text = "未知的数据格式或内容编码"
+            let info = ["data":data, "jsonError":error] as [String : Any]
+            throw NSError(domain: text, code: -10001, userInfo: info)
         }
         return result
     }
@@ -49,10 +56,11 @@ open class NetJSONDecoder : NetDecoder {
 
 open class NetDownDecoder : NetDecoder {
     
-    public typealias Result = Data
+    public typealias Result = (URL, Data)
+    public typealias Request = NetDownloadRequest
     
-    open func decode(data:Data) throws -> Data {
-        return data
+    open func decode(request:Request, response:HTTPURLResponse, data:Data) throws -> Result {
+        return (request.localURL, data)
     }
 
 }

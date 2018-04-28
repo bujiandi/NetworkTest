@@ -23,7 +23,29 @@
 		39D6AC692089CE0800113110 /* JSON+Literal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC602089CE0800113110 /* JSON+Literal.swift */; };
 		39D6AC6A2089CE0800113110 /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC612089CE0800113110 /* JSONDecoding.swift */; };
 		39D6AC6B2089CE0800113110 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC622089CE0800113110 /* JSON.swift */; };
-		39D6AC6D2089D01100113110 /* NetEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC6C2089D01100113110 /* NetEncoder.swift */; };
+		39D6AC6F208DA79800113110 /* NetUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC6E208DA79700113110 /* NetUpload.swift */; };
+		39D6AC71208DA7C400113110 /* NetDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC70208DA7C400113110 /* NetDownload.swift */; };
+		39D6AC75208F2DDE00113110 /* NetSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC74208F2DDE00113110 /* NetSessionDelegate.swift */; };
+		39D6AC8F2090514C00113110 /* NetEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC8E2090514C00113110 /* NetEncoder.swift */; };
+		39D6AC902090564500113110 /* Date+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC7B209050FA00113110 /* Date+Util.swift */; };
+		39D6AC912090564500113110 /* Bundle+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC7C209050FA00113110 /* Bundle+Version.swift */; };
+		39D6AC922090564500113110 /* TreeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC7D209050FA00113110 /* TreeType.swift */; };
+		39D6AC932090564500113110 /* Array+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC7E209050FA00113110 /* Array+Util.swift */; };
+		39D6AC942090564500113110 /* Unmanaged+Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC7F209050FA00113110 /* Unmanaged+Release.swift */; };
+		39D6AC952090564500113110 /* Optional+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC80209050FA00113110 /* Optional+String.swift */; };
+		39D6AC962090564500113110 /* Thread+GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC81209050FA00113110 /* Thread+GCD.swift */; };
+		39D6AC972090564500113110 /* ToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC82209050FA00113110 /* ToDictionary.swift */; };
+		39D6AC982090564500113110 /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC83209050FA00113110 /* Operator.swift */; };
+		39D6AC992090564500113110 /* String+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC84209050FA00113110 /* String+Util.swift */; };
+		39D6AC9A2090564500113110 /* UserDefaultTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC85209050FA00113110 /* UserDefaultTool.swift */; };
+		39D6AC9B2090564500113110 /* NSObject+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC86209050FA00113110 /* NSObject+Tag.swift */; };
+		39D6AC9C2090564500113110 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC87209050FA00113110 /* File.swift */; };
+		39D6AC9D2090564500113110 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC88209050FA00113110 /* Key.swift */; };
+		39D6AC9E2090564500113110 /* Rich.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC89209050FA00113110 /* Rich.swift */; };
+		39D6AC9F2090564500113110 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC8A209050FA00113110 /* Observable.swift */; };
+		39D6ACA02090564500113110 /* WeakContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC8B209050FA00113110 /* WeakContainer.swift */; };
+		39D6ACA12090564500113110 /* NumberFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC8C209050FA00113110 /* NumberFormat.swift */; };
+		39D6ACA22090564500113110 /* URL+StringLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC8D209050FA00113110 /* URL+StringLiteral.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -56,7 +78,29 @@
 		39D6AC602089CE0800113110 /* JSON+Literal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSON+Literal.swift"; sourceTree = "<group>"; };
 		39D6AC612089CE0800113110 /* JSONDecoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoding.swift; sourceTree = "<group>"; };
 		39D6AC622089CE0800113110 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
-		39D6AC6C2089D01100113110 /* NetEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetEncoder.swift; sourceTree = "<group>"; };
+		39D6AC6E208DA79700113110 /* NetUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetUpload.swift; sourceTree = "<group>"; };
+		39D6AC70208DA7C400113110 /* NetDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetDownload.swift; sourceTree = "<group>"; };
+		39D6AC74208F2DDE00113110 /* NetSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSessionDelegate.swift; sourceTree = "<group>"; };
+		39D6AC7B209050FA00113110 /* Date+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Util.swift"; sourceTree = "<group>"; };
+		39D6AC7C209050FA00113110 /* Bundle+Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Version.swift"; sourceTree = "<group>"; };
+		39D6AC7D209050FA00113110 /* TreeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeType.swift; sourceTree = "<group>"; };
+		39D6AC7E209050FA00113110 /* Array+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Util.swift"; sourceTree = "<group>"; };
+		39D6AC7F209050FA00113110 /* Unmanaged+Release.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Unmanaged+Release.swift"; sourceTree = "<group>"; };
+		39D6AC80209050FA00113110 /* Optional+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+String.swift"; sourceTree = "<group>"; };
+		39D6AC81209050FA00113110 /* Thread+GCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Thread+GCD.swift"; sourceTree = "<group>"; };
+		39D6AC82209050FA00113110 /* ToDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDictionary.swift; sourceTree = "<group>"; };
+		39D6AC83209050FA00113110 /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
+		39D6AC84209050FA00113110 /* String+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Util.swift"; sourceTree = "<group>"; };
+		39D6AC85209050FA00113110 /* UserDefaultTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultTool.swift; sourceTree = "<group>"; };
+		39D6AC86209050FA00113110 /* NSObject+Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Tag.swift"; sourceTree = "<group>"; };
+		39D6AC87209050FA00113110 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		39D6AC88209050FA00113110 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		39D6AC89209050FA00113110 /* Rich.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rich.swift; sourceTree = "<group>"; };
+		39D6AC8A209050FA00113110 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		39D6AC8B209050FA00113110 /* WeakContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakContainer.swift; sourceTree = "<group>"; };
+		39D6AC8C209050FA00113110 /* NumberFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormat.swift; sourceTree = "<group>"; };
+		39D6AC8D209050FA00113110 /* URL+StringLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+StringLiteral.swift"; sourceTree = "<group>"; };
+		39D6AC8E2090514C00113110 /* NetEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetEncoder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +133,7 @@
 		3930E52E2088375D00A02294 /* NetworkTest */ = {
 			isa = PBXGroup;
 			children = (
+				39D6AC7A209050FA00113110 /* Other */,
 				39D6AC592089CDD200113110 /* JSON */,
 				3930E536208837E400A02294 /* Network */,
 				3930E52F2088375D00A02294 /* main.swift */,
@@ -103,9 +148,12 @@
 				3930E53B20883A3C00A02294 /* NetQueue.swift */,
 				3930E53720883A2200A02294 /* NetGroup.swift */,
 				3930E53920883A2F00A02294 /* NetRequest.swift */,
+				39D6AC6E208DA79700113110 /* NetUpload.swift */,
+				39D6AC70208DA7C400113110 /* NetDownload.swift */,
 				39D6AC552089B81600113110 /* NetResponse.swift */,
 				39D6AC572089CB4200113110 /* NetDecoder.swift */,
-				39D6AC6C2089D01100113110 /* NetEncoder.swift */,
+				39D6AC8E2090514C00113110 /* NetEncoder.swift */,
+				39D6AC74208F2DDE00113110 /* NetSessionDelegate.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -124,6 +172,32 @@
 				39D6AC5B2089CE0700113110 /* JSONValueContainer.swift */,
 			);
 			path = JSON;
+			sourceTree = "<group>";
+		};
+		39D6AC7A209050FA00113110 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				39D6AC7B209050FA00113110 /* Date+Util.swift */,
+				39D6AC7C209050FA00113110 /* Bundle+Version.swift */,
+				39D6AC7D209050FA00113110 /* TreeType.swift */,
+				39D6AC7E209050FA00113110 /* Array+Util.swift */,
+				39D6AC7F209050FA00113110 /* Unmanaged+Release.swift */,
+				39D6AC80209050FA00113110 /* Optional+String.swift */,
+				39D6AC81209050FA00113110 /* Thread+GCD.swift */,
+				39D6AC82209050FA00113110 /* ToDictionary.swift */,
+				39D6AC83209050FA00113110 /* Operator.swift */,
+				39D6AC84209050FA00113110 /* String+Util.swift */,
+				39D6AC85209050FA00113110 /* UserDefaultTool.swift */,
+				39D6AC86209050FA00113110 /* NSObject+Tag.swift */,
+				39D6AC87209050FA00113110 /* File.swift */,
+				39D6AC88209050FA00113110 /* Key.swift */,
+				39D6AC89209050FA00113110 /* Rich.swift */,
+				39D6AC8A209050FA00113110 /* Observable.swift */,
+				39D6AC8B209050FA00113110 /* WeakContainer.swift */,
+				39D6AC8C209050FA00113110 /* NumberFormat.swift */,
+				39D6AC8D209050FA00113110 /* URL+StringLiteral.swift */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,20 +259,42 @@
 			files = (
 				39D6AC582089CB4200113110 /* NetDecoder.swift in Sources */,
 				3930E53E20883ABE00A02294 /* Network.swift in Sources */,
+				39D6AC982090564500113110 /* Operator.swift in Sources */,
+				39D6AC912090564500113110 /* Bundle+Version.swift in Sources */,
+				39D6AC9F2090564500113110 /* Observable.swift in Sources */,
 				39D6AC642089CE0800113110 /* JSONValueContainer.swift in Sources */,
 				39D6AC632089CE0800113110 /* JSONKeyedContainer.swift in Sources */,
+				39D6ACA22090564500113110 /* URL+StringLiteral.swift in Sources */,
+				39D6AC6F208DA79800113110 /* NetUpload.swift in Sources */,
+				39D6AC972090564500113110 /* ToDictionary.swift in Sources */,
 				3930E5302088375D00A02294 /* main.swift in Sources */,
+				39D6AC902090564500113110 /* Date+Util.swift in Sources */,
 				39D6AC562089B81600113110 /* NetResponse.swift in Sources */,
 				39D6AC652089CE0800113110 /* JSON+Object.swift in Sources */,
+				39D6AC9B2090564500113110 /* NSObject+Tag.swift in Sources */,
+				39D6AC992090564500113110 /* String+Util.swift in Sources */,
 				3930E53C20883A3C00A02294 /* NetQueue.swift in Sources */,
+				39D6AC9A2090564500113110 /* UserDefaultTool.swift in Sources */,
+				39D6AC932090564500113110 /* Array+Util.swift in Sources */,
+				39D6AC75208F2DDE00113110 /* NetSessionDelegate.swift in Sources */,
+				39D6ACA12090564500113110 /* NumberFormat.swift in Sources */,
+				39D6AC8F2090514C00113110 /* NetEncoder.swift in Sources */,
 				39D6AC672089CE0800113110 /* JSON+Serialize.swift in Sources */,
 				39D6AC692089CE0800113110 /* JSON+Literal.swift in Sources */,
 				3930E53820883A2200A02294 /* NetGroup.swift in Sources */,
 				39D6AC682089CE0800113110 /* JSONUnkeyedContainer.swift in Sources */,
+				39D6AC952090564500113110 /* Optional+String.swift in Sources */,
 				3930E53A20883A2F00A02294 /* NetRequest.swift in Sources */,
-				39D6AC6D2089D01100113110 /* NetEncoder.swift in Sources */,
+				39D6AC9D2090564500113110 /* Key.swift in Sources */,
+				39D6AC922090564500113110 /* TreeType.swift in Sources */,
+				39D6AC962090564500113110 /* Thread+GCD.swift in Sources */,
+				39D6ACA02090564500113110 /* WeakContainer.swift in Sources */,
 				39D6AC6A2089CE0800113110 /* JSONDecoding.swift in Sources */,
 				39D6AC662089CE0800113110 /* JSON+GetValue.swift in Sources */,
+				39D6AC71208DA7C400113110 /* NetDownload.swift in Sources */,
+				39D6AC942090564500113110 /* Unmanaged+Release.swift in Sources */,
+				39D6AC9C2090564500113110 /* File.swift in Sources */,
+				39D6AC9E2090564500113110 /* Rich.swift in Sources */,
 				39D6AC6B2089CE0800113110 /* JSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
