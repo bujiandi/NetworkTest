@@ -10,10 +10,13 @@ import Foundation
 
 let url:URL = "http://www.baidu.com/download/book.png?kslkjflla=123"
 
-let rrr = URL.init(string: "https://www.yunchengj.net/down/price.png", relativeTo: url)!
+let rrr = URL(string: "https://www.yunchengj.net/down/price.png", relativeTo: url)!
+
 
 print(url.lastPathComponent, rrr.absoluteString, rrr)
 
+
+print(Net.reachability.isReachableOnEthernetOrWiFi)
 
 class DataResult {
     var html:String
@@ -29,6 +32,9 @@ class DataResult {
 
 class Book {
     
+    deinit {
+        print("Book 已释放")
+    }
     
     func requestBaidu() {
         var result:DataResult?
@@ -54,7 +60,7 @@ Net.defaultQueue.concurrentlyCount = 2
 var book:Book? = Book()
 
 book?.requestBaidu()
-
+//book = nil
 
 //
 //

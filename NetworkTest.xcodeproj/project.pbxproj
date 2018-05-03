@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		392DCA07209AFF00002F13F9 /* NetReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392DCA06209AFF00002F13F9 /* NetReachability.swift */; };
 		3930E5302088375D00A02294 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930E52F2088375D00A02294 /* main.swift */; };
 		3930E53820883A2200A02294 /* NetGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930E53720883A2200A02294 /* NetGroup.swift */; };
 		3930E53A20883A2F00A02294 /* NetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930E53920883A2F00A02294 /* NetRequest.swift */; };
@@ -42,7 +43,7 @@
 		39D6AC9C2090564500113110 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC87209050FA00113110 /* File.swift */; };
 		39D6AC9D2090564500113110 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC88209050FA00113110 /* Key.swift */; };
 		39D6AC9E2090564500113110 /* Rich.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC89209050FA00113110 /* Rich.swift */; };
-		39D6AC9F2090564500113110 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC8A209050FA00113110 /* Observable.swift */; };
+		39D6AC9F2090564500113110 /* Listener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC8A209050FA00113110 /* Listener.swift */; };
 		39D6ACA02090564500113110 /* WeakContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC8B209050FA00113110 /* WeakContainer.swift */; };
 		39D6ACA12090564500113110 /* NumberFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC8C209050FA00113110 /* NumberFormat.swift */; };
 		39D6ACA22090564500113110 /* URL+StringLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6AC8D209050FA00113110 /* URL+StringLiteral.swift */; };
@@ -61,6 +62,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		392DCA06209AFF00002F13F9 /* NetReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetReachability.swift; sourceTree = "<group>"; };
 		3930E52C2088375D00A02294 /* NetworkTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NetworkTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3930E52F2088375D00A02294 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3930E53720883A2200A02294 /* NetGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetGroup.swift; sourceTree = "<group>"; };
@@ -96,7 +98,7 @@
 		39D6AC87209050FA00113110 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		39D6AC88209050FA00113110 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		39D6AC89209050FA00113110 /* Rich.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rich.swift; sourceTree = "<group>"; };
-		39D6AC8A209050FA00113110 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		39D6AC8A209050FA00113110 /* Listener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listener.swift; sourceTree = "<group>"; };
 		39D6AC8B209050FA00113110 /* WeakContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakContainer.swift; sourceTree = "<group>"; };
 		39D6AC8C209050FA00113110 /* NumberFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormat.swift; sourceTree = "<group>"; };
 		39D6AC8D209050FA00113110 /* URL+StringLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+StringLiteral.swift"; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				39D6AC572089CB4200113110 /* NetDecoder.swift */,
 				39D6AC8E2090514C00113110 /* NetEncoder.swift */,
 				39D6AC74208F2DDE00113110 /* NetSessionDelegate.swift */,
+				392DCA06209AFF00002F13F9 /* NetReachability.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -192,7 +195,7 @@
 				39D6AC87209050FA00113110 /* File.swift */,
 				39D6AC88209050FA00113110 /* Key.swift */,
 				39D6AC89209050FA00113110 /* Rich.swift */,
-				39D6AC8A209050FA00113110 /* Observable.swift */,
+				39D6AC8A209050FA00113110 /* Listener.swift */,
 				39D6AC8B209050FA00113110 /* WeakContainer.swift */,
 				39D6AC8C209050FA00113110 /* NumberFormat.swift */,
 				39D6AC8D209050FA00113110 /* URL+StringLiteral.swift */,
@@ -261,10 +264,11 @@
 				3930E53E20883ABE00A02294 /* Network.swift in Sources */,
 				39D6AC982090564500113110 /* Operator.swift in Sources */,
 				39D6AC912090564500113110 /* Bundle+Version.swift in Sources */,
-				39D6AC9F2090564500113110 /* Observable.swift in Sources */,
+				39D6AC9F2090564500113110 /* Listener.swift in Sources */,
 				39D6AC642089CE0800113110 /* JSONValueContainer.swift in Sources */,
 				39D6AC632089CE0800113110 /* JSONKeyedContainer.swift in Sources */,
 				39D6ACA22090564500113110 /* URL+StringLiteral.swift in Sources */,
+				392DCA07209AFF00002F13F9 /* NetReachability.swift in Sources */,
 				39D6AC6F208DA79800113110 /* NetUpload.swift in Sources */,
 				39D6AC972090564500113110 /* ToDictionary.swift in Sources */,
 				3930E5302088375D00A02294 /* main.swift in Sources */,

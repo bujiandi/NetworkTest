@@ -11,6 +11,7 @@ import Foundation
 // MARK: - Http Basic
 public struct Net {
     
+    
     public static var delegate:NetDelegate? = nil
     public static var defaultEncoder:NetEncoder = NetParamsEncoder()
     public static var defaultQueue = NetQueue()

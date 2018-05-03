@@ -45,8 +45,6 @@ open class NetParamsEncoder: NetEncoder {
     open func encode(request: NetRequest, params: inout [(String, Any)]) {
         
     }
-    
-    
 }
 
 //open class NetParamsEncoder {
