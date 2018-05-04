@@ -12,6 +12,8 @@ import Foundation
 // MARK: - 私有
 class NetSessionDelegate: NSObject, URLSessionDownloadDelegate, URLSessionDataDelegate {
     
+
+    
     // 无论成功失败都会走这里, 用来做完成回调
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         
@@ -78,6 +80,13 @@ class NetSessionDelegate: NSObject, URLSessionDownloadDelegate, URLSessionDataDe
         }
     }
     
+    // 上传进度变化
+    func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
+        if let request = task.netRequest as? NetUploadRequest {
+            request.onProgress(totalSize: totalBytesSent, localSize: bytesSent)
+        }
+    }
+    
     // 断点续传开始
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
         // 获得下载请求
@@ -106,6 +115,7 @@ class NetSessionDelegate: NSObject, URLSessionDownloadDelegate, URLSessionDataDe
         guard let response = dataTask.response as? HTTPURLResponse else {
             let info = ["message":"未知的下载请求响应:\(dataTask.response?.classNameForCoder ?? String.Empty)"]
             let error = NSError(domain: NSURLErrorDomain, code: -3001, userInfo: info)
+            request.cancelContinue = false
             request.onComplete(nil, dataTask.response, error)
             return completionHandler(.cancel)
         }
@@ -121,7 +131,8 @@ class NetSessionDelegate: NSObject, URLSessionDownloadDelegate, URLSessionDataDe
         // 如果不是下载的响应状态
         if response.statusCode != 200 && response.statusCode != 206 {
             let info = ["message":"非下载网络状态:\(response.statusCode)"]
-            let error = NSError(domain: NSURLErrorDomain, code: -3002, userInfo: info)
+            let error = NSError(domain: NSURLErrorDomain, code: response.statusCode, userInfo: info)
+            request.cancelContinue = false
             request.onComplete(nil, dataTask.response, error)
             return completionHandler(.cancel)
         }
@@ -187,6 +198,7 @@ class NetSessionDelegate: NSObject, URLSessionDownloadDelegate, URLSessionDataDe
         // 如果大小一致则取消下载 返回成功
         // 调用成功回调
         request._localURL = fileURL //downloadURL
+        request.cancelContinue = true
         urlSession(session, task: dataTask, didCompleteWithError: nil)
         dataTask.netRequest = nil
         completionHandler(.cancel)

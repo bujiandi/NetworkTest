@@ -39,7 +39,7 @@ extension NetQueue {
     /// 创建 HTTP 请求组
     open func http(_ createGroup: @escaping (NetGroup) -> Void) -> NetGroup {
         let group = NetGroup(queue: self, retry: createGroup)
-        group.resume()
+        group.createRequests()
         return group
     }
         
@@ -69,6 +69,16 @@ extension NetQueue {
         }
     }
     
+    func restart(group:NetGroup) {
+        if let (task, request) = group.ongoingRequest {
+            request.cancel(task: task)
+            group.ongoingRequest = nil
+        }
+        for (session, ongoing) in ongoingGroups where ongoing === group {
+            group.resume(session: session)
+        }
+    }
+    
     func complete(group:NetGroup) {
         if let index = ongoingGroups.index(where: { $0.1 === group }) {
             ongoingGroups.remove(at: index)
@@ -78,8 +88,7 @@ extension NetQueue {
     
     func sessionFactory(_ group:NetGroup) -> URLSession {
         let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config, delegate: nil, delegateQueue: nil)
-        
+        let session = URLSession(configuration: config, delegate: group.sessionDelegate, delegateQueue: nil)
         
         return session
     }

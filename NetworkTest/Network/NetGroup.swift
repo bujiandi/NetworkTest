@@ -39,11 +39,21 @@ open class NetGroup {
         self.retry = retry
     }
     
-    public func resume() {
+    func createRequests() {
         requests.removeAll(keepingCapacity: true)
         progress.totalUnitCount = 0
         progress.completedUnitCount = 0
         retry(self)
+    }
+    
+    public func resume() {
+        createRequests()
+        if !_isInQueue {
+            queue.groups.append(self)
+            queue.resume()
+        } else {
+            queue.restart(group: self)
+        }
     }
     
     func resume(session:URLSession) {
@@ -55,7 +65,9 @@ open class NetGroup {
         }
         let request = requests.removeFirst()
         let task = request.resumeTask(session: session) {
-            [weak self] (data, response, error) in
+            [weak self] (data, response, error, cancelContinue) in
+            
+            if (error as NSError?)?.code == -999, !cancelContinue { return }
             
             guard let this = self else { return }
             this.ongoingRequest = nil
@@ -83,6 +95,7 @@ open class NetGroup {
 
     func failureCancel(with error:Error) {
         queue.complete(group: self)
+        _isInQueue = false
         _complete(with: error as NSError)
     }
     
@@ -90,7 +103,7 @@ open class NetGroup {
         var url:URL?
         if let (task, request) = ongoingRequest {
             url = request.url
-            task.cancel()
+            request.cancel(task: task)
             ongoingRequest = nil
         }
         
@@ -113,13 +126,16 @@ open class NetGroup {
         failureCancel(with: error)
     }
     
+    private var _isInQueue:Bool = false
     private var _completeHandle:((NSError?) -> Void)?
     public func onComplete(_ callback: @escaping (NSError?) -> Void) {
         _completeHandle = callback
-        
+        _isInQueue = true
         queue.groups.append(self)
         queue.resume()
     }
+    
+    lazy var sessionDelegate = NetSessionDelegate()
     
     deinit {
         print("组释放")

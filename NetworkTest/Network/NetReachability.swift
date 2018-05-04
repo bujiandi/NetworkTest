@@ -13,7 +13,7 @@ import Foundation
 
 extension Net {
     
-    public static var reachability = { () -> NetReachability in 
+    public static var reachability = { () -> NetReachability in
         let reach = NetReachability(host: "www.apple.com")!
         reach.startListening()
         return reach

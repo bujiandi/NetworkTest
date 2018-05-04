@@ -38,43 +38,49 @@ class Book {
     
     func requestBaidu() {
         var result:DataResult?
-        Net.http {
+        let group = Net.http {
             $0.request(URL(string: "http://m.baidu.com/")!)
-                .onSuccess(decoder:  NetHTMLDecoder(), { (html) in
+                .responseData(decoder: NetHTMLDecoder(), onSuccess: { (html) in
                     result = DataResult(html)
                 })
-            }.onComplete {
-                if let error = $0 {
-                    print("Book 失败:",error.localizedDescription)
-                } else {
-                    print("成功 result:\(String(describing: result))")
-                }
-//                result = nil
+            }
+        group.onComplete {
+            if let error = $0 {
+                print("Book 失败:",error.localizedDescription)
+            } else {
+                print("成功 result:\(String(describing: result))")
+            }
         }
         
+        group.cancel()
+        
+        
+        group.resume()
     }
+    
+    
     
 }
 Net.defaultQueue.concurrentlyCount = 2
 
 var book:Book? = Book()
 
-book?.requestBaidu()
+//book?.requestBaidu()
 //book = nil
 
 //
 //
 //Net.http {
 //    $0.request(URL(string: "http://www.baidu.com/")!)
-//        .onSuccess(decoder: NetHTMLDecoder()) { (html) in
+//        .responseData(decoder: NetHTMLDecoder()) { (html) in
 //            print("www 成功")
 //    }
 //    $0.request(URL(string: "http://s.baidu.com/")!)
-//        .onSuccess(decoder: NetHTMLDecoder()) { (html) in
+//        .responseData(decoder: NetHTMLDecoder()) { (html) in
 //            print("s 成功")
 //    }
 //    $0.request(URL(string: "http://m.baidu.com/")!)
-//        .onSuccess(decoder: NetHTMLDecoder()) { (html) in
+//        .responseData(decoder: NetHTMLDecoder()) { (html) in
 //            print("m 成功")
 //    }
 //    }.onComplete {
@@ -87,18 +93,18 @@ book?.requestBaidu()
 //
 //Net.http {
 //    $0.request(URL(string: "http://www.baidu.com/")!)
-//        .onSuccess(decoder: NetHTMLDecoder()) { (html) in
+//        .responseData(decoder: NetHTMLDecoder()) { (html) in
 //            print("www 成功")
 //    }
 //    $0.request(URL(string: "http://m.baidu.com/")!)
 //        .param(post: "231", value: 2)
 //        .param(post: "note", value: 1)
 //        .param(post: "flower") { "123" }
-//        .onSuccess(decoder: NetHTMLDecoder()) { (html) in
+//        .responseData(decoder: NetHTMLDecoder()) { (html) in
 //            print("m 成功")
 //    }
 //    $0.request(URL(string: "http://s.baidu.com/")!)
-//        .onSuccess(decoder: NetHTMLDecoder()) { (html) in
+//        .responseData(decoder: NetHTMLDecoder()) { (html) in
 //            print("s 成功")
 //    }
 //    }.onComplete {
@@ -109,17 +115,19 @@ book?.requestBaidu()
 //        }
 //}
 
-DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
     book = nil
 
     Net.http {
         $0.request(URL(string: "https://f11.baidu.com/it/u=1882878358,2856985097&fm=173&app=25&f=JPEG?w=624&h=419&s=359B7B954BBEC8CA58F9EDDA03008033&access=215967316")!)
-            .downloadToCache()
+            .download(toPath: "/Users/bujiandi/Downloads/test.jpeg")
+            .header(key: "Referrer", value: "https://m.baidu.com/")
             .onProgressChanged {
                 print( Double($0.completedUnitCount) / Double($0.totalUnitCount) )
             }
-            .onSuccess(decoder: NetDownDecoder(), { (data) in
-                
+            .responseData(decoder: NetDownDecoder(), onSuccess: { (data) in
+                print("download to", data.0.relativePath)
+//                try? data.1.write(to: URL(fileURLWithPath: "/Users/bujiandi/Downloads/test.jpeg"))
             })
         }.onComplete({
             if let error = $0 {

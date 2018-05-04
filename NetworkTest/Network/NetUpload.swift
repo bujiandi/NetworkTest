@@ -63,15 +63,36 @@ open class NetUploadRequest : NetRequest {
     private var _form:NetUploadForm
     public var form:NetUploadForm { return _form }
     
+    public var progress:Progress
+
     public init(request:NetRequest, form:NetUploadForm) {
+        progress = Progress(totalUnitCount: 0, parent: request.group.progress, pendingUnitCount: 0)
+
         _form = form
         super.init(group: request.group, url: request.url)
+        
+        progress.isCancellable = true
+        progress.cancellationHandler = { [weak self] in self?.cancel() }
+        progress.isPausable = true
+        progress.pausingHandler = { [weak self] in self?.cancel() }
+
         _postParams = request._postParams
         _getParams = request._getParams
         _headers = request._headers
         _encoder = request._encoder
         _timeout = request._timeout
         _policy = request._policy
+    }
+    
+    var _progress:((Progress) -> Void)?
+    public func onProgressChanged(_ handler: @escaping (Progress) -> Void) -> Self {
+        _progress = handler
+        return self
+    }
+    func onProgress(totalSize:Int64, localSize:Int64) {
+        progress.totalUnitCount = totalSize
+        progress.completedUnitCount = localSize
+        _progress?(progress)
     }
     
     public override var urlRequest: URLRequest {
@@ -131,14 +152,15 @@ open class NetUploadRequest : NetRequest {
         return request
     }
     
-    override func resumeTask(session: URLSession, _ onComplete: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionTask {
+    override func resumeTask(session: URLSession, _ onComplete: @escaping (Data?, URLResponse?, Error?, Bool) -> Void) -> URLSessionTask {
         
         let request = urlRequest
         
         let task = session.uploadTask(with: request, from: request.httpBody!) {
             (data:Data?, response:URLResponse?, error:Error?) in
-            onComplete(data, response, error)
+            onComplete(data, response, error, false)
         }
+        task.netRequest = self
         task.resume()
         return task
 

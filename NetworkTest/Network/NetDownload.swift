@@ -54,17 +54,60 @@ open class NetDownloadRequest : NetRequest {
         _progress?(progress)
     }
 
-    override func resumeTask(session:URLSession, _ onComplete: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionTask {
-        let task = session.dataTask(with: urlRequest)
+    override func resumeTask(session:URLSession, _ onComplete: @escaping (Data?, URLResponse?, Error?, Bool) -> Void) -> URLSessionTask {
+        
+        let request = urlRequest
+        
+        let getURL = request.url!.absoluteString
+        
+        // 用url绝对地址生成key 获得书签路径
+        let bookmarkPath = Net.bookmarkPathFor(key: getURL) //_localURL?.relativePath ?? ""
+        let cacheDataPath = bookmarkPath.stringByAppending(pathComponent: "download.data")
+        
+        let fileManager = FileManager.default
+        
+        // 文件不存在或不是目录 则创建
+        var isDir:ObjCBool = false
+        if !fileManager.fileExists(atPath: bookmarkPath, isDirectory: &isDir) || !isDir.boolValue {
+            try! fileManager.createDirectory(atPath: bookmarkPath, withIntermediateDirectories: true, attributes: nil)
+        }
+        
+        var task:URLSessionTask!
+        // 如果文件存在 则 从断点续传 下载 否则 开始新的下载
+        if fileManager.fileExists(atPath: cacheDataPath, isDirectory: &isDir) && !isDir.boolValue {
+            let data = try! Data(contentsOf: URL(fileURLWithPath: cacheDataPath, isDirectory: false))
+            
+            try? fileManager.removeItem(atPath: cacheDataPath)
+            
+            task = session.downloadTask(withResumeData: data)
+        } else {
+            task = session.dataTask(with: request)
+        }
+
         _complete = onComplete
+
+        task.netRequest = self
         task.resume()
         return task
     }
     
-    func onComplete(_ data:Data?, _ response:URLResponse?, _ error:Error?) {
-        _complete?(data, response, error)
+    override func cancel(task: URLSessionTask) {
+        guard let task = task as? URLSessionDownloadTask else { return super.cancel() }
+        
+        let getURL = self.getURL.absoluteString
+        let bookmarkPath = Net.bookmarkPathFor(key: getURL) //_localURL?.relativePath ?? ""
+        let cacheDataPath = bookmarkPath.stringByAppending(pathComponent: "download.data")
+        let cacheDataURL = URL(fileURLWithPath: cacheDataPath, isDirectory: false)
+        
+        // 取消请求, 将恢复下载数据写入文件 以备断点续传使用
+        task.cancel { try? $0?.write(to: cacheDataURL) }
     }
-    var _complete:((Data?, URLResponse?, Error?) -> Void)?
+    
+    func onComplete(_ data:Data?, _ response:URLResponse?, _ error:Error?) {
+        _complete?(data, response, error, cancelContinue)
+    }
+    var cancelContinue:Bool = false
+    var _complete:((Data?, URLResponse?, Error?, Bool) -> Void)?
 }
 
 

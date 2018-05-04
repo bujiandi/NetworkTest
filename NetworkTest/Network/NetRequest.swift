@@ -80,14 +80,22 @@ open class NetRequest {
         group.cancel()
     }
     
-    public var urlRequest:URLRequest {
-        
+    public var getURL:URL {
         let encoder:NetEncoder = _encoder ?? Net.defaultEncoder
         var url = self.url
         
         if _getParams.count > 0 {
             url = encoder.url(forRequest: self, withGetParams: _getParams)
         }
+        
+        return url
+    }
+    
+    public var urlRequest:URLRequest {
+        
+        let encoder:NetEncoder = _encoder ?? Net.defaultEncoder
+        
+        let url = getURL
         
         var request = URLRequest(url: url, cachePolicy: policy, timeoutInterval: timeout)
         
@@ -127,14 +135,19 @@ open class NetRequest {
         return request
     }
     
-    func resumeTask(session:URLSession, _ onComplete: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionTask {
+    func resumeTask(session:URLSession, _ onComplete: @escaping (Data?, URLResponse?, Error?, Bool) -> Void) -> URLSessionTask {
         
         let task = session.dataTask(with: urlRequest) {
             (data:Data?, response:URLResponse?, error:Error?) in
-            onComplete(data, response, error)
+            onComplete(data, response, error, false)
         }
+        task.netRequest = self
         task.resume()
         return task
+    }
+    
+    func cancel(task:URLSessionTask) {
+        task.cancel()
     }
     
     var _decodeResponse:((NetGroup, Data?, URLResponse?, Error?) -> Bool)?
@@ -151,13 +164,13 @@ open class NetDataRequest : NetRequest {
     }
     
     /// 转为下载请求
-    public func download(to localURL:URL) -> NetDownloadRequest {
+    public func download(toURL localURL:URL) -> NetDownloadRequest {
         return NetDownloadRequest(request: self, local: localURL)
     }
     
     /// 转为下载请求
-    public func download(to localPath:String) -> NetDownloadRequest {
-        return download(to: URL(fileURLWithPath: localPath))
+    public func download(toPath localPath:String) -> NetDownloadRequest {
+        return download(toURL: URL(fileURLWithPath: localPath))
     }
     
     /// 转为下载请求
@@ -170,7 +183,7 @@ open class NetDataRequest : NetRequest {
 extension NetSuccessable where Self : NetRequest {
     
     @discardableResult
-    public func onSuccess<T:NetDecoder>(decoder:T, _ callback: @escaping (T.Result) -> Void) -> Self where Self == T.Request {
+    public func responseData<T:NetDecoder>(decoder:T, onSuccess: @escaping (T.Result) -> Void) -> Self where Self == T.Request {
         
         _decodeResponse = { [unowned self]
             (group:NetGroup, data:Data?, response:URLResponse?, netErr:Error?) in
@@ -187,14 +200,14 @@ extension NetSuccessable where Self : NetRequest {
             if !(200..<300).contains(httpRes.statusCode) {
                 let code = httpRes.statusCode
                 let text = (netErr as NSError?)?.domain ?? "网络错误[\(code)]"
-                let err = NSError(domain: text, code: code, userInfo: ["response":httpRes])
-                group.failureCancel(with: err)
+                let error = NSError(domain: text, code: code, userInfo: ["response":httpRes])
+                group.failureCancel(with: error)
                 return false
             }
             
             // 如果如果成功解析
             do {
-                callback(try decoder.decode(request: self, response: httpRes, data: httpData))
+                onSuccess(try decoder.decode(request: self, response: httpRes, data: httpData))
             } catch {
                 group.failureCancel(with: error)
                 return false
